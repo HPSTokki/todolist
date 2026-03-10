@@ -29,3 +29,9 @@ def update_task(session: db, task_id: int, data: UpdateTask) -> ReadTask:
     service = TodoService(session)
     task = service.update_task(data, task_id)
     return task
+
+@router.delete("/{task_id}", response_model=ReadTask, status_code=200)
+def delete_task(session: db, task_id: int) -> ReadTask:
+    service = TodoService(session)
+    task = service.delete_task(task_id)
+    return task
