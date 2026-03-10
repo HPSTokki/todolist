@@ -41,3 +41,11 @@ class TodoService():
         self.session.commit()
         self.session.refresh(updated_task)
         return ReadTask.model_validate(updated_task)
+    
+    def delete_task(self, task_id: int) -> ReadTask:
+        task = self.session.get(Task, task_id)
+        if not task:
+            raise TaskDoesNotExists()
+        self.session.delete(task)
+        self.session.commit()
+        return ReadTask.model_validate(task)
